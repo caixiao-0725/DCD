@@ -77,13 +77,13 @@ int main()
 
     // build and compile our shader zprogram
     // ------------------------------------
-    Shader ourShader("E:/wb/dcd/shader/model_loading.vs", "E:/wb/dcd/shader/model_loading.fs");
+    Shader ourShader("../shader/model_loading.vs", "../shader/model_loading.fs");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
 
-    Model teapot0 = Model("E:/wb/dcd/model/teapot.obj");
-    Model teapot1 = Model("E:/wb/dcd/model/teapot.obj");
+    Model teapot0 = Model("../model/teapot.obj");
+    Model teapot1 = Model("../model/teapot.obj");
 
     // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
     // -------------------------------------------------------------------------------------------

@@ -77,18 +77,18 @@ int main()
 
     // build and compile our shader zprogram
     // ------------------------------------
-    Shader ourShader("../shader/model_loading.vs", "../shader/model_loading.fs");
+    Shader ourShader("E:/wb/dcd/shader/model_loading.vs", "E:/wb/dcd/shader/model_loading.fs");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
 
-    Model teapot0 = Model("../model/teapot.obj");
-    Model teapot1 = Model("../model/teapot.obj");
+    Model teapot0 = Model("E:/wb/dcd/model/teapot.obj");
+    Model teapot1 = Model("E:/wb/dcd/model/teapot.obj");
 
     // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
     // -------------------------------------------------------------------------------------------
     ourShader.use();
-    teapot0.update(-3);
+    teapot1.update(-2.3);
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -98,7 +98,7 @@ int main()
         float currentFrame = static_cast<float>(glfwGetTime());
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
-        teapot0.update(0.001);
+        teapot1.update(0.001);
         CollidePair.clear();
         CollideDetection::execute(&teapot0, &teapot1, &CollidePair);
         printf("collide pair num : %d\n", CollidePair.size());

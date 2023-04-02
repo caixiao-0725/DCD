@@ -7,7 +7,7 @@
 #include "aap.h"
 
 
-#define IsLeaf(node) ((node->_left == NULL)&&(node->_right==NULL))
+#define IsLeaf(node) (node->_left == NULL)
 
 
 BVHIndexPair::BVHIndexPair(const unsigned int& id1, const unsigned int& id2)
@@ -78,9 +78,15 @@ bvh_tree::bvh_tree(Model *mdl)
 
 	_root = new bvh_node();
 	_root->_box = total;
-	_root->_left = new bvh_node(idx_buffer, left_idx, mdl);
-	_root->_right = new bvh_node(idx_buffer+left_idx, mdl->faces_.size()-left_idx, mdl);
+	if (left_idx == 0) {
+		_root = new bvh_node(idx_buffer + left_idx, mdl->faces_.size() - left_idx, mdl);
+	}
+	else {
+		_root->_left = new bvh_node(idx_buffer, left_idx, mdl);
+		_root->_right = new bvh_node(idx_buffer + left_idx, mdl->faces_.size() - left_idx, mdl);
 
+	}
+	
 	delete [] mdl->_tri_boxes;
 	delete [] mdl->_tri_centers;
 	mdl->_tri_boxes = NULL;
@@ -115,6 +121,7 @@ bvh_node::bvh_node(unsigned int id)
 
 bvh_node::bvh_node(unsigned int *lst, unsigned int lst_num, Model *mdl)
 {
+
 	assert(lst_num > 0);
 	_left = _right = NULL;
 	_id = UINT_MAX;
@@ -131,7 +138,9 @@ bvh_node::bvh_node(unsigned int *lst, unsigned int lst_num, Model *mdl)
 
 		if (lst_num == 2) { // must split it!
 			_left = new bvh_node(lst[0]);
+			_left->_box = mdl->_tri_boxes[lst[0]];
 			_right = new bvh_node(lst[1]);
+			_right->_box = mdl->_tri_boxes[lst[1]];
 		} else {
 			aap pln(_box);
 			unsigned int left_idx = 0, right_idx = lst_num-1;
@@ -184,7 +193,6 @@ bvh_node::collide(bvh_node* other, std::vector<BVHIndexPair>* f)
 	if (!_box.overlaps(other->_box)) {
 		return;
 	}
-
 	if (IsLeaf(this) && IsLeaf(other)) {
 		BVHIndexPair new_pair = BVHIndexPair(_id, other->_id);
 		f->push_back(new_pair);

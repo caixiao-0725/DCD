@@ -140,7 +140,6 @@ void CollideDetection::execute(Model* model0, Model* model1, std::vector<BVHInde
 
 	bvh_tree tree0 = bvh_tree(model0);
 	bvh_tree tree1 = bvh_tree(model1);
-
 	tree0.collide(&tree1, &BoxCollide);
 	printf("collide box num : %d\n", BoxCollide.size());
 

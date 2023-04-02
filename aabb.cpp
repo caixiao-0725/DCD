@@ -34,13 +34,11 @@ aabb::empty()
 aabb::aabb()
 {
 	empty();
-	_color = vec3f(frand48(), frand48(), frand48());
 }
 
 aabb::aabb(const vec3d &v)
 {
 	_min = _max = v;
-	_color = vec3f(frand48(), frand48(), frand48());
 }
 
 aabb &

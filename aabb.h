@@ -4,7 +4,6 @@
 
 class aabb {
 public:
-	vec3f _color;
 
 	vec3d _min;
 	vec3d _max;

@@ -31,7 +31,7 @@ Model::Model(const char* filename) : verts_(), faces_() {
             int iuv, idx;//idx是顶点索引，itrash用来读我们暂时用不到的纹理坐标和法线向量
             iss >> trash;
             int i = 0;
-            while (iss >> idx) {//读取x/x/x格式
+            while (iss >> idx) {//读取x x x格式
                 idx--; // all indices start at 1, not 0
                 v.raw[i] = idx;;//加入该面片的顶点集
                 i++;
